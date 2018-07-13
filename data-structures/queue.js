@@ -44,35 +44,26 @@ queue values - (first)2-5-7-3-6-9(last)
 myQueue.until(7)
 => 3
 What's the time complexity?
-
-
-
-
  */
 
-function Queue(capacity) {
-  // implement me...
+class Queue {
+    constructor() {
+        this.size = 0;
+        this.storage = {};
+    }
+
+    enqueue(newItem) {
+        this.storage[this.size] = (newItem);
+    }
+
+    dequeue() {
+        return this.storage[0];
+    }
+
+    size() {
+        return this.size;
+    }
 }
-
-Queue.prototype.enqueue = function(value) {
-  // implement me...
-};
-// Time complexity:
-
-Queue.prototype.dequeue = function() {
-  // implement me...
-};
-// Time complexity:
-
-Queue.prototype.peek = function() {
-  // implement me...
-};
-
-Queue.prototype.count = function() {
-  // implement me...
-};
-// Time complexity:
-
 
 
 /*

@@ -28,3 +28,44 @@ subarrays for regular merge sort: [ [1], [2], [4], [5], [9] ]
 subarrays for natural merge sort: [ [1,2], [4,5], [9] ]
 
 */
+
+const mergeSort = (list = []) => {
+    const listLength = list.length;
+
+    if (listLength < 2)
+        return list;
+
+    const listHalfIndex = listLength / 2;
+    const leftHalf = list.slice(0, listHalfIndex);
+    const rightHalf = list.slice(listHalfIndex);
+    const listA = mergeSort(leftHalf);
+    const listB = mergeSort(rightHalf);
+
+    return merge(listA, listB);
+};
+
+const merge = (listA = [], listB = []) => {
+    let sortedList = [];
+    let leftHalfPointer = 0;
+    let rightHalfPointer = 0;
+
+    // while sorted list length not equal splitted lists length sum keep looping
+    while (sortedList.length < (listA.length + listB.length)) {
+        // if listA pointer equal listA length, concat it with listB list
+        if (listA.length === leftHalfPointer)
+            sortedList = sortedList.concat(listB.slice(rightHalfPointer));
+        // if listB pointer equal listB length, concat it with listA list
+        else if (listB.length === rightHalfPointer)
+            sortedList = sortedList.concat(listA.slice(leftHalfPointer));
+        // if listA element equal or less then listB element
+        else if (listA[leftHalfPointer] <= listB[rightHalfPointer]) {
+            sortedList.push(listA[leftHalfPointer]);
+            leftHalfPointer += 1;
+        } else {
+            sortedList.push(listB[rightHalfPointer]);
+            rightHalfPointer += 1;
+        }
+    }
+
+    return sortedList;
+};

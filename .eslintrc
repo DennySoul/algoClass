@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "max-len": 0,
+    "func-names": "off",
+    "indent": 0,
+    "nonblock-statement-body-position": "off",
+    "curly": 0
+  }
+}

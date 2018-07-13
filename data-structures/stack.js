@@ -28,7 +28,6 @@ Similiar to pop, but do not remove element from collection
 myStack.count()
 => number of elements in stack
 
-
 *** Additional Exercises:
 
 Modify your stack to take a max capacity and return a string if you try to add an element when there's no more room:
@@ -46,32 +45,27 @@ myStack.until(7)
 => 4
 What's the time complexity?
 
-
-
  */
 
-function Stack(capacity) {
-  // implement me...
+class Stack {
+    constructor() {
+        this.storage = [];
+    }
+
+    push(newItem) {
+        this.storage.push(newItem);
+        return this.storage;
+    }
+
+    pop() {
+        return this.storage.pop();
+    }
+
+    size() {
+        return this.storage.length;
+    }
 }
 
-Stack.prototype.push = function(value) {
-  // implement me...
-};
-// Time complexity:
-
-Stack.prototype.pop = function() {
-  // implement me...
-};
-// Time complexity:
-
-Stack.prototype.peek = function() {
-  // implement me...
-};
-// Time complexity:
-
-Stack.prototype.count = function() {
-  // implement me...
-};
 // Time complexity:
 
 

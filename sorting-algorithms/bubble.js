@@ -19,3 +19,29 @@ Variants:
 (https://en.wikipedia.org/wiki/Cocktail_sort)
 
 */
+
+const bubbleSort = (list = []) => {
+    const listLength = list.length;
+    let currentElement;
+    let nextElement;
+    let previousElement;
+    let i = 0;
+
+    while (listLength >= 0) {
+        currentElement = list[i];
+        nextElement = list[i + 1];
+
+        for (let i = 0; i < listLength; i++) {
+            if (currentElement > nextElement) {
+                const tmp = currentElement;
+
+                list[i] = nextElement;
+                list[i + 1] = tmp;
+            }
+        }
+
+        i--;
+    }
+
+    return list;
+};

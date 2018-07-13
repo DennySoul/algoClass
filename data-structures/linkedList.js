@@ -77,55 +77,110 @@ Reimplement stack and queue data structures using linked lists.
 
  */
 
-
 // PART 1
 
 function Node(value) {
-  this.next = null;
-  this.value = value;
+    this.next = null;
+    this.value = value;
 }
 
 function LinkedList(headValue) {
-  if (headValue === undefined) console.log('Must provide value for first node');
-  this.head = new Node(headValue);
+    if (headValue === undefined) console.log('Must provide value for first node');
+    this.head = new Node(headValue);
 }
 
 LinkedList.prototype.forEach = function(callback) {
-  // implement me...
+    // implement me...
+    let node = this.head;
+
+    while (node) {
+        callback(node.value);
+        node = node.next;
+    }
 };
 // Time complexity:
 
 LinkedList.prototype.print = function() {
-  // implement me...
+    // implement me...
+    let node = this.head;
+    const values = [];
+
+    while (node) {
+        values.push(node.value);
+        node = node.next;
+    }
+
+    return values;
 };
 // Time complexity:
 
 LinkedList.prototype.insertAfter = function(node, value) {
-  // implement me...
+    // implement me...
+    const oldNext = node.next;
+    const newNext = new Node(value);
+
+    node.next = newNext;
+    newNext.next = oldNext;
+
+    if (this.tail === node)
+        this.tail = newNext;
+
+    return newNext;
 };
 // Time complexity:
 
 LinkedList.prototype.removeAfter = function(node) {
-  // implement me...
+    // implement me...
+    const currentNode = this.findNode(node.value);
+    const tmp = currentNode.next;
+
+    currentNode.next = node;
+    node.next = tmp;
 };
 // Time complexity:
 
 LinkedList.prototype.insertHead = function(value) {
-  // implement me...
+    // implement me...
+    const tmp = this.head;
+    this.head = new Node(value);
+    this.head.next = tmp;
 };
 // Time complexity:
 
 LinkedList.prototype.removeHead = function() {
-  // implement me...
+    // implement me...
+    const tmp = this.head.next;
+    this.head = tmp;
 }
 
 LinkedList.prototype.findNode = function(value) {
-  // implement me...
+    // implement me...
+    let node = this.head;
+
+    while (node.value !== value) {
+        node = node.next;
+
+        if (node.value === value)
+            return node;
+    }
 };
 // Time complexity:
 
 LinkedList.prototype.appendToTail = function(value) {
-  // implement me...
+    // implement me...
+    let existingNode = this.head;
+
+    while (existingNode.next !== null) {
+        existingNode = existingNode.next;
+
+        if (existingNode.next === null) {
+            const tmp = existingNode.next;
+
+            existingNode.next = node;
+            node.next = null;
+            break;
+        }
+    }
 };
 // Time complexity:
 
@@ -133,12 +188,44 @@ LinkedList.prototype.appendToTail = function(value) {
 // PART 2:
 
 LinkedList.prototype.insertBefore = function(node, value) {
-  // implement me...
+    // implement me...
+    let existingNode = this.head;
+    while (existingNode.next !== node) {
+        existingNode = existingNode.next;
+
+        if (existingNode.next === node) {
+            const tmp = existingNode.next;
+
+            existingNode.next = node;
+            node.next = tmp;
+            break;
+        }
+    }
+
+    const currentNode = this.findNode(node.value);
+    const tmp = currentNode.next;
+    const newNode = new Node(value);
+
+    newNodet.next = tmp;
 };
 // Time complexity:
 
 LinkedList.prototype.removeBefore = function(node) {
-  // implement me...
+    // implement me...
+    // let existingNode = this.head;
+    // let parent = existingNode.next;
+    //
+    // while (parent.next !== node) {
+    //     existingNode = existingNode.next;
+    //
+    //     if (parent.next === node) {
+    //         const tmp = parent.next;
+    //
+    //         existingNode.next = node;
+    //         node.next = tmp;
+    //         break;
+    //     }
+    // }
 };
 // Time complexity:
 
