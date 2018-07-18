@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /*
 HEAPS
 
@@ -24,3 +26,5 @@ heap.removeMax()
 Remove the max value from the heap, reorder the heap, and return the max value
 
 */
+
+/* eslint-enable max-len */

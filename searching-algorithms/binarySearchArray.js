@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 BINARY SEARCH ARRAY
 
@@ -12,3 +13,5 @@ Write a function that takes a sorted array and a value and returns the index of 
 Extra credit: Implement the function both iteratively and recursively.
 
 */
+
+/* eslint-enable max-len */

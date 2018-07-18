@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 TREES
 
@@ -39,13 +40,15 @@ https://en.wikipedia.org/wiki/Trie
 
 */
 
-function Tree (value) {
-  // implement me...
-  this.value = value;
-  this.children = [];
+/* eslint-enable max-len */
+
+function Tree(value) {
+    // implement me...
+    this.value = value;
+    this.children = [];
 }
 
-Tree.prototype.addChild = function(value) {
+Tree.prototype.addChild = function (value) {
     const child = new Tree(value);
     this.children.push(child);
 
@@ -53,9 +56,8 @@ Tree.prototype.addChild = function(value) {
 };
 // Time complexity:
 
-
-Tree.prototype.contains = function(value) {
-  // implement me...
+Tree.prototype.contains = function (value) {
+    // implement me...
     const loop = (value) => {
         this.children.forEach((childNode) => {
             if (childNode.children.length === 0) {
@@ -74,14 +76,13 @@ Tree.prototype.contains = function(value) {
 };
 // Time complexity:
 
-
-Tree.prototype.traverseDepthFirst = function(fn) {
-  // implement me...
+Tree.prototype.traverseDepthFirst = function (fn) {
+    this.children.forEach(child => child.traverseDepthFirst(fn), this);
+    fn(this);
 };
 // Time complexity:
 
-
-Tree.prototype.traverseBreadthFirst = function(fn) {
-  // implement me...
+Tree.prototype.traverseBreadthFirst = function (fn) {
+    // implement me...
 };
 // Time complexity:

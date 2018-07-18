@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 GRAPHS
 
@@ -86,52 +87,127 @@ Given a directed graph and two nodes in the graph, write a function that indicat
 
 */
 
+/* eslint-enable max-len */
 
-function Graph () {
-  this._nodes = {};
+function Graph() {
+    this.nodes = {};
 }
 
-Graph.prototype.addNode = function(value) {
-  // implement me...
+Graph.prototype.addNode = function (value) {
+    this.nodes = {
+        ...this.nodes,
+        [value]: [],
+    };
 };
 // Time complexity:
 
-Graph.prototype.removeNode = function(value) {
-  // implement me...
+Graph.prototype.removeNode = function (value) {
+    for (let k in this.nodes) {
+        const i = this.nodes[k].indexOf(value);
+
+        if (i !== -1) {
+            this.nodes[k] = [
+                ...this.nodes[k].slice(0, i),
+                ...this.nodes[k].slice(i),
+            ];
+
+            return true;
+        }
+    }
+
+    return false;
 };
 // Time complexity:
 
-Graph.prototype.contains = function(value) {
-  // implement me...
+Graph.prototype.contains = function (value) {
+    for (let k in this.nodes) {
+        if (this.nodes[k].indexOf(value) !== -1)
+            return true;
+    }
+
+    return false;
 };
 // Time complexity:
 
-Graph.prototype.addEdge = function(value1, value2) {
-  // implement me...
+Graph.prototype.addEdge = function (value1, value2) {
+    if (!this.nodes[value1] || !this.nodes[value2])
+        return false;
+
+    this.nodes[value1].push(value2);
+    this.nodes[value2].push(value1);
 };
 // Time complexity:
 
-Graph.prototype.removeEdge = function(value1, value2) {
-  // implement me...
+Graph.prototype.removeEdge = function (value1, value2) {
+    if (!this.hasEdge(value1, value2))
+        return false;
+
+    const v2Index = this.nodes[value1].indexOf(value2);
+    const v1Index = this.nodes[value2].indexOf(value1);
+    const getValueIndex = v => v === value1 ? v2Index : v1Index;
+
+    [value1, value2].forEach(v => {
+        this.nodes[v] = [
+            ...this.nodes[v].slice(0, getValueIndex(v)),
+            ...this.nodes[v].slice(getValueIndex(v)),
+        ];
+    });
 };
 // Time complexity:
 
-Graph.prototype.hasEdge = function(value1, value2) {
-  // implement me...
+Graph.prototype.hasEdge = function (value1, value2) {
+    return this.nodes[value1].indexOf(value2) !== -1 && this.nodes[value2].indexOf(value1) !== -1;
 };
 // Time complexity:
 
-Graph.prototype.forEach = function(fn) {
-  // implement me...
+Graph.prototype.forEach = function (fn) {
+    // implement me...
 };
 // Time complexity:
 
-Graph.prototype.traverseDepthFirst = function(value, fn, visited, distance) {
-  // implement me...
+Graph.prototype.traverseDepthFirst = function (value, fn, visited, distance) {
+    if (!this.nodes[value] || typeof fn !== 'function')
+        return false;
+
+    visited = visited || {};
+    distance = distance || 0;
+
+    fn(value, distance);
+
+    visited[value] = true;
+
+    this.nodes[value].forEach(neighbour => {
+        if (visited[neighbour])
+            return;
+
+        this.traverseDepthFirst(neighbour, fn, visited, distance + 1);
+    }, this);
 };
 // Time complexity:
 
-Graph.prototype.traverseBreadthFirst = function(value, fn) {
-  // implement me...
+Graph.prototype.traverseBreadthFirst = function (value, fn) {
+    if (!this.nodes[value] || typeof fn !== 'function')
+        return false;
+
+    const visited = {};
+    let queue = [value];
+
+    visited[value] = 0;
+
+    while (queue.length) {
+        const node = queue.shift();
+
+        fn(node, visited[node]);
+
+        const neighbours = this.nodes.filter(neighbour => {
+            if (!visited[neighbour]) {
+                visited[neighbour] = visited[node] + 1;
+
+                return true;
+            }
+        });
+
+        queue = queue.concat(neighbours);
+    }
 };
 // Time complexity:

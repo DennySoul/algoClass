@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /*
 
 QUEUE
@@ -45,6 +47,8 @@ myQueue.until(7)
 => 3
 What's the time complexity?
  */
+
+/* eslint-enable max-len */
 
 class Queue {
     constructor() {

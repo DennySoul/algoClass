@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /*
 
 STACK
@@ -46,6 +48,8 @@ myStack.until(7)
 What's the time complexity?
 
  */
+
+/* eslint-enable max-len */
 
 class Stack {
     constructor() {

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 
 Write a function that outputs the nth Fibonnaci number. A number in this sequence is found by adding up the two numbers before it.
@@ -8,3 +9,5 @@ output   0 1 1 2 3 5 8 13 21 34 ...
 
 What is the time complexity? Can you think of optimizing your solution? (Hint: look up dynamic programming)
 */
+
+/* eslint-enable max-len */

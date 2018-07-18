@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /*
 
 SET
@@ -38,6 +40,8 @@ Make your set able to take objects, arrays, and functions as values in addition 
 
 
  */
+
+/* eslint-enable max-len */
 
 function Set(capacity) {
   // implement me...

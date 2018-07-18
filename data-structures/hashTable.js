@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 
 HASH TABLE
@@ -51,69 +52,97 @@ Resize the hash table:
 - if the count becomes greater than 75% of the table size, double the table size and redistribute the key/value pairs
 - if the count becomes less than 25% of the table size, cut the table size in half and redistribute the key/value pairs
 
-
-
-
-
 */
+
+/* eslint-enable max-len */
 
 // Simple hashing function to use in your implementation
 function simpleHash(str, tableSize) {
-  var hash = 0;
-  for (var i=0; i<str.length; i++) {
-    hash += str.charCodeAt(i) * (i+1);
-  }
-  return hash % tableSize;
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash += str.charCodeAt(i) * (i + 1);
+    }
+    return hash % tableSize;
 }
+
 // source: http://pmav.eu/stuff/javascript-hashing-functions/source.html
 
-function HashTable(/* ??? */) {
-  // implement me...
+function HashTable(size = 5) {
+    this.cells = [];
+    this.count = 0;
+    this.size = size;
 }
 
 // This is a helper method that you may want to implement to help keep your code DRY
 // You can implement the hash table methods without it.
 // I recommend skipping it and coming back if you find that it will be useful
-HashTable.prototype.find = function(key) {
-  // implement me...
-  return {
-    match: match,
-    bucket: bucket,
-    matchIndex: matchIndex
-  };
+HashTable.prototype.find = function (key) {
+    const hash = simpleHash(key, this.size);
+
+    this.cells[hash] = this.cells[hash] || [];
+
+    const bucket = this.cells[hash];
+    let match;
+    let matchIndex;
+
+    bucket.forEach((item ,i) => {
+        if (item.hasOwnProperty(key)) {
+            match = item;
+            matchIndex = i;
+        }
+    });
+    return { match, bucket, matchIndex };
 };
 
-HashTable.prototype.set = function(key, value) {
-  // implement me...
+HashTable.prototype.set = function (key, value) {
+    const { match, bucket } = this.find(key);
+
+    if (match) {
+        match[key] = value;
+    } else {
+        const newItem = {};
+        newItem[key] = value;
+        this.count++;
+        bucket.push(newItem);
+
+        if (this.count > 0.75 * this.size) {
+            this.resize(2 * this.size);
+        }
+    }
+
+    return this;
 };
 // Time complexity:
 
-HashTable.prototype.get = function(key) {
-  // implement me...
+HashTable.prototype.get = function (key) {
+    return this.find(key);
 };
 // Time complexity:
 
-HashTable.prototype.has = function(key) {
-  // implement me...
+HashTable.prototype.has = function (key) {
+    return !!this.find(key).match;
 };
 // Time complexity:
 
-HashTable.prototype.delete = function(key) {
-  // implement me...
+HashTable.prototype.delete = function (key) {
+    if (!this.has(key))
+        return false;
+    //TODO
+    const { bucket } = this.find(key);
+
+    delete this.cells[this.count];
 };
 // Time complexity:
 
-HashTable.prototype.count = function() {
-  // implement me...
+HashTable.prototype.count = function () {
+    return this.cells.length;
 };
 // Time complexity:
 
-HashTable.prototype.forEach = function(callback) {
-  // implement me...
+HashTable.prototype.forEach = function (callback) {
+    this.cells.forEach(x => Object.values(x).forEach(v => callback(v)));
 };
 // Time complexity:
-
-
 
 /*
 *** Exercises:

@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /*
 
 LINKED LIST
@@ -76,6 +78,8 @@ Reimplement stack and queue data structures using linked lists.
 
 
  */
+
+/* eslint-enable max-len */
 
 // PART 1
 

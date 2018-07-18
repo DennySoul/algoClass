@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 BINARY SEARCH TREES
 
@@ -50,45 +51,138 @@ For this exercise, let's say that a tree is balanced if the minimum height and t
 A binary search tree was created by iterating over an array and inserting each element into the tree. Given a binary search tree with no duplicates, how many different arrays would result in the creation of this tree.
 
 */
+/* eslint-enable max-len */
 
-function BinarySearchTree (value) {
-  this.value = value;
-  this.left = null;
-  this.right = null;
+function BinarySearchTree(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
 }
 
 BinarySearchTree.prototype.insert = function(value) {
-  // implement me...
+    if (this.value >= value) {
+        if (this.left)
+            this.left.insert(value);
+        else
+            this.left = new BinarySearchTree(value);
+    } else {
+        if (this.right)
+            this.right.insert(value);
+        else
+            this.right = new BinarySearchTree(value);
+    }
+
+    return this;
 };
 // Time complexity:
 
-BinarySearchTree.prototype.contains = function(value) {
-  // implement me...
+BinarySearchTree.prototype.contains = function (value) {
+    if (this.value === value)
+        return true;
+
+    if (this.value > value)
+        return !!this.left && this.left.contains(value);
+
+    if (this.value < value)
+        return !!this.right && this.right.contains(value);
+
+    return false;
 };
 // Time complexity:
 
-BinarySearchTree.prototype.traverseDepthFirst_inOrder = function(fn) {
-  // implement me...
+BinarySearchTree.prototype.traverseDepthFirst_inOrder = function (fn) {
+    if (!!this.left && !!this.right)
+        return;
+
+    if (this.left)
+        this.traverseDepthFirst_inOrder(fn);
+
+    if (this.right)
+        this.traverseDepthFirst_inOrder(fn);
+
+    fn(this.value);
+
+    return undefined;
 };
 // Time complexity:
 
-BinarySearchTree.prototype.traverseDepthFirst_preOrder = function(fn) {
-  // implement me...
+BinarySearchTree.prototype.traverseDepthFirst_preOrder = function (fn) {
+    fn(this.value);
+
+    if (!!this.left && !!this.right)
+        return;
+
+    if (this.left)
+        this.traverseDepthFirst_preOrder(fn);
+
+    if (this.right)
+        this.traverseDepthFirst_preOrder(fn);
+
+    return undefined;
 };
 // Time complexity:
 
-BinarySearchTree.prototype.traverseDepthFirst_postOrder = function(fn) {
-  // implement me...
+BinarySearchTree.prototype.traverseDepthFirst_postOrder = function (fn) {
+    if (!!this.left && !!this.right)
+        return;
+
+    if (this.left)
+        this.traverseDepthFirst_postOrder(fn);
+
+    if (this.right)
+        this.traverseDepthFirst_postOrder(fn);
+
+    fn(this.value);
+
+    return undefined;
 };
 // Time complexity:
 
-
-BinarySearchTree.prototype.checkIfFull = function() {
-  // implement me...
+BinarySearchTree.prototype.checkIfFull = function () {
+    // implement me...
 };
 // Time complexity:
 
-BinarySearchTree.prototype.checkIfBalanced = function() {
-  // implement me...
+BinarySearchTree.prototype.checkIfBalanced = function () {
+    // implement me...
 };
 // Time complexity:
+
+BinarySearchTree.prototype.traverseAndDeleteMin = (parent = this.value) => {
+    if (!!this.left && !!this.right)
+        parent.left = null;
+
+    if (!this.left && this.right)
+        this.left = this.right;
+
+    if (this.left)
+        this.traverseAndDeleteMin(parent);
+};
+
+BinarySearchTree.prototype.traverseAndDeleteMax = (parent = this.value) => {
+    if (!!this.left && !!this.right)
+        parent.right = null;
+
+    if (!this.right && this.left)
+        this.right = this.left;
+
+    if (this.right)
+        this.traverseAndDeleteMax(parent);
+};
+
+BinarySearchTree.prototype.deleteNode = (value) => {
+    if (this.value === value) {
+        this.value = this.right;
+        this.right = this.left;
+        this.left = null;
+    }
+
+    let parent = this.value;
+
+    if (value === parent.left || value === parent.right) {
+        const pointer = value === parent.left ? 'left' : 'right';
+        parent[pointer] = null;
+    }
+
+
+};
